@@ -39,5 +39,28 @@ $response = $pigeon->Customer->login("you@email.com","some_password");
 
 // Record the token for subsequent calls that require status and access information.
 
+
+
+/**
+ * Logout a customer
+ *
+ * SCHEMA
+ * logout( mixed $id_or_token, str $type = "token" )
+ *
+ * $id_or_token
+ * 	user id or session token
+ *
+ * $type
+ * 	Default is token. The user id can be used, but will remove all
+ * 	user sessions created via api, which in most cases will only be one.
+ *
+ */
+
+// Min example
+$response = $pigeon->Customer->logout("23c66491e798a3370010a6758d6a1837");
+
+// User id example
+$response = $pigeon->Customer->logout(1,"id");
+
 echo "\n\n\n #===== RESPONSE ====#\n\n";
 print_r($response);
