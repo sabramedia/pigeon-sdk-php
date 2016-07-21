@@ -15,6 +15,7 @@ $pigeon = new Pigeon();
 
 /**
  * The create method allow for creating customer accounts on Pigeon.
+ * Upon success an email invite is sent to the customer asking them to set their password
  *
  * SCHEMA
  * create( array $data, bool $force_auth = FALSE )
