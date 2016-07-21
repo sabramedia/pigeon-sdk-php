@@ -28,6 +28,8 @@ $pigeon = new Pigeon();
  *
  * RESPONSE
  *
+ * all responses return success == TRUE | FALSE for error handling
+ *
  */
 
 // NOTE: Hide/Unhide the following blocks to test.
@@ -59,6 +61,17 @@ $response = $pigeon->Customer->create(array(
 	"password2"=>"sadfasdf" // For comparing
 	// More can be added later
 ));
+
+
+// Conditional handling
+if( $response->success ){
+	// Log the token and user id for future reference
+	echo $response->customer->display_name;
+	echo " Logged In";
+}else{
+	// Handle failed login here
+	echo $response->error_message;
+}
 
 
 echo "\n\n\n #===== RESPONSE ====#\n\n";
