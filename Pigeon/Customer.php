@@ -1,26 +1,32 @@
 <?php
-/**
- * Created by JetBrains PhpStorm.
- * User: nick
- * Date: 7/20/16
- * Time: 2:58 PM
- * To change this template use File | Settings | File Templates.
- */
+
 class Pigeon_Customer extends Pigeon
 {
 
-	public function create( $input )
+	public function create( $input, $force_auth = FALSE )
 	{
 		if( !array_key_exists("email", $input) ){
 			throw new Exception("An email is required for account creation");
 		}
 
-		return $this->post("/customer", $input);
+		return $this->post("/customer", array("data"=>$input,"force_auth"=>$force_auth));
 	}
 
 	public function find( $filters )
 	{
-		parent::get("/customer", $filters);
+		return parent::get("/customer", $filters);
+	}
+
+	/**
+	 * @param $email
+	 * @param $password
+	 * @return mixed
+	 *
+	 * Add for semantics
+	 */
+	public function auth( $email, $password )
+	{
+		return $this->login($email, $password);
 	}
 
 	public function login( $email, $password )
@@ -28,13 +34,16 @@ class Pigeon_Customer extends Pigeon
 		return $this->post("/customer/login", array("email"=>$email,"password"=>$password));
 	}
 
-	public function logout( $id, $token )
+	/**
+	 * @param $id_or_token
+	 * @param string $type
+	 * @return mixed
+	 *
+	 * default is sending token, but the user id can be used, but will remove all
+	 * user sessions created via api, which in most cases will ony be one.
+	 */
+	public function logout( $id_or_token, $type = "token" )
 	{
-		return $this->post("/customer/logout", array("session_id"=>$id,"session_token"=>$token));
-	}
-
-	public function auth( $id, $token )
-	{
-		return $this->post("/customer/auth", array("id"=>$id,"token"=>$token));
+		return $this->post("/customer/logout", array("token"=>$id_or_token,"type"=>$type));
 	}
 }
