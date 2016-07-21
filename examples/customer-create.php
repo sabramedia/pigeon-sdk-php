@@ -1,5 +1,7 @@
 <?php
 ini_set( "display_errors", TRUE );
+
+// Change to the path of the init Pigeon.php file.
 require_once( __DIR__. "/Pigeon.php");
 
 Pigeon_Configuration::clientId("CLIENT_ID");
