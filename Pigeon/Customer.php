@@ -19,6 +19,9 @@ class Pigeon_Customer extends Pigeon
 
 	public function search( $filters )
 	{
+		if( !is_array($filters) )
+			$filters = array("search"=>$filters);
+
 		return parent::get("/customer/search", $filters);
 	}
 
