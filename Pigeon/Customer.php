@@ -12,9 +12,14 @@ class Pigeon_Customer extends Pigeon
 		return $this->post("/customer", array("data"=>$input,"force_auth"=>$force_auth));
 	}
 
-	public function find( $filters )
+	public function find( $customer_id )
 	{
-		return parent::get("/customer", $filters);
+		return parent::get("/customer", array("id"=>$customer_id));
+	}
+
+	public function search( $filters )
+	{
+		return parent::get("/customer/search", $filters);
 	}
 
 	/**
@@ -40,7 +45,7 @@ class Pigeon_Customer extends Pigeon
 	 * @return mixed
 	 *
 	 * default is sending token, but the user id can be used, but will remove all
-	 * user sessions created via api, which in most cases will ony be one.
+	 * user sessions created via api, which in most cases will only be one.
 	 */
 	public function logout( $id_or_token, $type = "token" )
 	{
