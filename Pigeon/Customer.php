@@ -42,6 +42,26 @@ class Pigeon_Customer extends Pigeon
 		return $this->post("/customer/login", array("email"=>$email,"password"=>$password));
 	}
 
+	public function sessionLogin( $customer_id )
+	{
+		$unique_session = md5(Pigeon_Configuration::get("pigeon_domain"));
+		if( array_key_exists($unique_session."_id", $_COOKIE) && array_key_exists($unique_session."_hash", $_COOKIE) ){
+			return $this->post("/customer/session_login", array("customer_id"=>$customer_id,"session_id"=>$_COOKIE[$unique_session."_id"],"session_hash"=>$_COOKIE[$unique_session."_hash"]));
+		}else{
+			return FALSE;
+		}
+	}
+
+	public function sessionLogout( $customer_id )
+	{
+		$unique_session = md5(Pigeon_Configuration::get("pigeon_domain"));
+		if( array_key_exists($unique_session."_id", $_COOKIE) && array_key_exists($unique_session."_hash", $_COOKIE) ){
+			return $this->post("/customer/session_logout", array("customer_id"=>$customer_id,"session_id"=>$_COOKIE[$unique_session."_id"],"session_hash"=>$_COOKIE[$unique_session."_hash"]));
+		}else{
+			return FALSE;
+		}
+	}
+
 	/**
 	 * @param $id_or_token
 	 * @param string $type
