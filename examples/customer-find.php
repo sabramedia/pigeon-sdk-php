@@ -16,7 +16,7 @@ $pigeon = new Pigeon();
  * Authenticate the customer
  *
  * SCHEMA
- * find( arr $file )
+ * find( arr || str $customer_id )
  *
  * $filters
  * 	"id" == user id
@@ -27,16 +27,33 @@ $pigeon = new Pigeon();
  * RESPONSE
  * The customer array along with access and auth status if the session token is passed
  *
+ * SEARCH SCHEMA
+ * search( str || arr )
+ *
+ * string = customer name | email | company | zip | phone
+ *
+ * array =
+ * "search" == search as stated above
+ * "limit" == limit results
+ * "page" == paginate limits (zero based, 0 is first page)
+ *
  */
 
+// FIND A CUSTOMER
 // Token search will return auth status and access metadata
 $response = $pigeon->Customer->find(array("token"=>"22b46acc403af624e69c75f7886a0bdf"));
 
 
-// Get the user data by id, but won't tell if they are authenticated or what kind of access they have
-$response = $pigeon->Customer->find(array("id"=>1));
+// Get the user data by customer id
+$response = $pigeon->Customer->find($customer_id);
 
-// NOTE the session token will be used when determining if a customer can access on-demand content or subscription-level access
+
+// SEARCH CUSTOMERS
+// Search  by customer name | email | company | zip | phone
+$response = $pigeon->Customer->search("search term here");
+
+// Same search, but limited to the first result on page 1
+$response = $pigeon->Customer->search(array("search"=>"search term here","limit"=>1,"page"=>0));
 
 echo "\n\n\n #===== RESPONSE ====#\n\n";
 print_r($response);
