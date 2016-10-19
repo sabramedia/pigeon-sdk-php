@@ -74,4 +74,9 @@ class Pigeon_Customer extends Pigeon
 	{
 		return $this->post("/customer/logout", array("token"=>$id_or_token,"type"=>$type));
 	}
+
+	public function getSSOLink( $customer_id, $url )
+	{
+		return "https://" . Pigeon_Configuration::get("pigeon_domain")."?psso=".$customer_id."&rd=".urlencode($url);
+	}
 }
