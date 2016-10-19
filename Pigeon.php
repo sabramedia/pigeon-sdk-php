@@ -19,6 +19,7 @@ require_once('Pigeon/Configuration.php');
 require_once('Pigeon/Curl.php');
 require_once('Pigeon/CurlResponse.php');
 require_once('Pigeon/Customer.php');
+require_once('Pigeon/Plan.php');
 
 
 function requireDependencies() {
