@@ -10,7 +10,7 @@ class Pigeon_Plan extends Pigeon
 	const ITEM_TYPE_TANGIBLE = 4;
 	const ITEM_TYPE_TEMP_PASS = 5;
 	const ITEM_TYPE_CREDIT = 6;
-	const ITEM_TYPE_COMPLEMENTARY_ACCESS = 7;
+	const ITEM_TYPE_COMPLIMENTARY_ACCESS = 7;
 
 	public function find( $plan_id )
 	{
@@ -33,5 +33,10 @@ class Pigeon_Plan extends Pigeon
 	public function getTrials()
 	{
 		return $this->search(array("item_type"=>self::ITEM_TYPE_SUBSCRIPTION_TRIAL));
+	}
+
+	public function getPlans()
+	{
+		return $this->search(array("item_type"=>self::ITEM_TYPE_SUBSCRIPTION));
 	}
 }
