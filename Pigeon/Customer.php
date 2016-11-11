@@ -107,7 +107,9 @@ class Pigeon_Customer extends Pigeon
 
 	public function getSSOLink( $customer_id, $url )
 	{
-		return "https://" . Pigeon_Configuration::get("pigeon_domain")."?psso=".$customer_id."&rd=".urlencode($url);
+		$sso_encoded = base64_encode(http_build_query(array("customer_id"=>$customer_id,"rd"=>$url)));
+		$signature = hash_hmac("sha_256",$sso_encoded,Pigeon_Configuration::get("apiKey"));
+		return "https://" . Pigeon_Configuration::get("pigeon_domain")."?psso=".$sso_encoded."&sig=".$signature;
 	}
 
 	public function addTrial( $customer_id, $plan_number, $trial_days )
