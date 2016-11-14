@@ -27,6 +27,17 @@ class Pigeon_Customer extends Pigeon
 		return $response;
 	}
 
+	public function update( $customer_id, $input )
+	{
+		if( !$customer_id )
+			throw new Exception("Update needs a customer id");
+
+		$input["customer_id"] = $customer_id;
+		$input["send_notice"] = FALSE;
+
+		$this->create($input);
+	}
+
 	public function find( $customer_id )
 	{
 		$response = parent::get("/customer", array("id"=>$customer_id));
