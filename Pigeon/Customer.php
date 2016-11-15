@@ -119,7 +119,7 @@ class Pigeon_Customer extends Pigeon
 	public function getSSOLink( $customer_id, $url )
 	{
 		$sso_encoded = base64_encode(http_build_query(array("customer_id"=>$customer_id,"rd"=>$url)));
-		$signature = hash_hmac("sha_256",$sso_encoded,Pigeon_Configuration::get("apiKey"));
+		$signature = hash_hmac("sha256",$sso_encoded,Pigeon_Configuration::get("api_key"));
 		return "https://" . Pigeon_Configuration::get("pigeon_domain")."?psso=".$sso_encoded."&sig=".$signature;
 	}
 
