@@ -102,6 +102,21 @@ class Pigeon_Customer extends Pigeon
 		}
 	}
 
+	public function isSessionLoggedIn()
+	{
+		$unique_session = md5(Pigeon_Configuration::get("pigeon_domain"));
+		if( array_key_exists($unique_session."_id", $_COOKIE) && array_key_exists($unique_session."_hash", $_COOKIE) ){
+			$response = $this->get("/customer/is_logged_in", array("session_id"=>$_COOKIE[$unique_session."_id"],"session_hash"=>$_COOKIE[$unique_session."_hash"]));
+			if( isset($response->customer->id) ){
+				return $response->customer->id;
+			}else{
+				return FALSE;
+			}
+		}else{
+			return FALSE;
+		}
+	}
+
 	/**
 	 * @param $id_or_token
 	 * @param string $type
