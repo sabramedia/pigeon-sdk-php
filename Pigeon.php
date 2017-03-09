@@ -16,6 +16,7 @@ set_include_path(get_include_path() . PATH_SEPARATOR . realpath(dirname(__FILE__
 
 require_once('Pigeon/StaticDictionary.php');
 require_once('Pigeon/Configuration.php');
+require_once('Pigeon/Cookie.php');
 require_once('Pigeon/Curl.php');
 require_once('Pigeon/CurlResponse.php');
 require_once('Pigeon/Customer.php');

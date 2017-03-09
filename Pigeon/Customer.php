@@ -38,6 +38,15 @@ class Pigeon_Customer extends Pigeon
 		$this->create($input);
 	}
 
+	/**
+	 * Get the current customer by session data
+	 */
+	public function getLoggedIn()
+	{
+		$response = $this->isSessionLoggedIn();
+		return $response ? $response->customer : FALSE;
+	}
+
 	public function find( $customer_id )
 	{
 		$response = parent::get("/customer", array("id"=>$customer_id));
@@ -71,8 +80,18 @@ class Pigeon_Customer extends Pigeon
 	public function login( $email, $password )
 	{
 		$response = $this->post("/customer/login", array("email"=>$email,"password"=>$password));
-		if( isset($response->customer->id) )
-			$this->customer_id = $response->customer->id;
+		if( isset($response->customer->id) ){
+			$unique_session = md5(Pigeon_Configuration::get("pigeon_domain"));
+			// Sets cookie for customer session handling
+			Pigeon_Cookie::set( $unique_session."_id", (string)$response->session->id, array(
+				"timeout" => $response->session->timeout,
+				"domain" => $response->session->domain
+			) );
+			Pigeon_Cookie::set( $unique_session."_hash", $response->session->hash, array(
+				"timeout" => $response->session->timeout,
+				"domain" => $response->session->domain
+			) );
+		}
 
 		return $response;
 	}
@@ -108,7 +127,7 @@ class Pigeon_Customer extends Pigeon
 		if( array_key_exists($unique_session."_id", $_COOKIE) && array_key_exists($unique_session."_hash", $_COOKIE) ){
 			$response = $this->get("/customer/is_logged_in", array("session_id"=>$_COOKIE[$unique_session."_id"],"session_hash"=>$_COOKIE[$unique_session."_hash"]));
 			if( isset($response->customer->id) ){
-				return $response->customer->id;
+				return $response;
 			}else{
 				return FALSE;
 			}
