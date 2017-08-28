@@ -10,13 +10,13 @@ Pigeon_Configuration::pigeonDomain("PIGEON_DOMAIN");
 
 $pigeon = new Pigeon();
 
-// DO CUSTOMER FIND EXAMPLES - 2016-07-21
+// DO CUSTOMER FIND EXAMPLES - 2017-08-28
 
 /**
  * Authenticate the customer
  *
  * SCHEMA
- * find( arr || str $customer_id )
+ * find( str $customer_id )
  *
  * $filters
  * 	"id" == user id
@@ -33,18 +33,18 @@ $pigeon = new Pigeon();
  * string = customer name | email | company | zip | phone
  *
  * array =
- * "search" == search as stated above
+ * "search" == search string as stated above
  * "limit" == limit results
  * "page" == paginate limits (zero based, 0 is first page)
  *
  */
 
 // FIND A CUSTOMER
-// Token search will return auth status and access metadata
-$response = $pigeon->Customer->find(array("token"=>"22b46acc403af624e69c75f7886a0bdf"));
 
+// Get a customer based on their logged in status. This only works in the context of the primary domain (e.g., company.com, sub1.company.com, sub2.company.com)
+$response = $pigeon->Customer->getLoggedIn();
 
-// Get the user data by customer id
+// Get the user data by customer id. This method can be used in the context of the primary domain or via a third-party domain (e.g., company2.com to company.com)
 $response = $pigeon->Customer->find($customer_id);
 
 
