@@ -30,7 +30,7 @@ Pigeon_Configuration::pigeonDomain("PIGEON_DOMAIN");
  * [string] URL to redirect to on failure
  */
 
- Pigeon_Configuration::set("sso_auth_failed_redirect", FALSE);
+Pigeon_Configuration::set("sso_auth_failed_redirect", FALSE);
 
 $pigeon = new Pigeon();
 $customer_id = NULL;
