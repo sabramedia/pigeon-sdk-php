@@ -169,7 +169,7 @@ class Pigeon_Customer extends Pigeon
 
 	public function SSOLogin( $customer_id, $url="" )
 	{
-		header("Location: " . $this->getSSOLink($customer_id, ($url ? $url : ($_SERVER["HTTPS"]) ? "https" : "http")."://".$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"]));
+		header("Location: " . $this->getSSOLink($customer_id, ($url ? $url : ($_SERVER["HTTPS"] ? "https" : "http")."://".$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"])));
 	}
 
 	public function SSOLogout( $url="" )
