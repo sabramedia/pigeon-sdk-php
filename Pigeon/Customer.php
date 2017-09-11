@@ -231,4 +231,9 @@ class Pigeon_Customer extends Pigeon
 	{
 		return $this->post("/customer/add_plan", array("customer_id"=>$customer_id,"plan_number"=>$plan_number, "plan_type"=>Pigeon_Plan::ITEM_TYPE_SUBSCRIPTION_TRIAL,"trial_days"=>$trial_days));
 	}
+
+	public function switchPlan( $customer_id, $new_plan_number, $send_notice = TRUE )
+	{
+		return $this->post("/customer/switch_plan", array("customer_id"=>$customer_id,"plan_number"=>$new_plan_number, "send_notice"=>$send_notice ));
+	}
 }
