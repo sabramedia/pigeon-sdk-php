@@ -35,7 +35,7 @@ class Pigeon_Customer extends Pigeon
 		$input["customer_id"] = $customer_id;
 		$input["send_notice"] = FALSE;
 
-		$this->create($input);
+		return $this->create($input);
 	}
 
 	/**
