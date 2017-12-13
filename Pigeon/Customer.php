@@ -244,4 +244,9 @@ class Pigeon_Customer extends Pigeon
 	{
 		return $this->post("/customer/switch_plan", array("customer_id"=>$customer_id,"plan_number"=>$new_plan_number, "send_notice"=>$send_notice ));
 	}
+
+	public function cancelPlan( $customer_id, $plan_number=NULL )
+	{
+		return $this->post("/customer/cancel_plan", array("customer_id"=>$customer_id,"plan_number"=>$plan_number ));
+	}
 }
