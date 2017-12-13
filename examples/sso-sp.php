@@ -4,9 +4,9 @@ ini_set( "display_errors", TRUE );
 // Change to the path of the init Pigeon.php file.
 require_once( __DIR__. "../../Pigeon.php");
 
-Pigeon_Configuration::clientId("CLIENT_ID");
-Pigeon_Configuration::apiKey("API_KEY");
-Pigeon_Configuration::pigeonDomain("PIGEON_DOMAIN");
+Pigeon_Configuration::pigeonDomain("profil-test.acadienouvelle.com");
+Pigeon_Configuration::clientId("acadienouvelle");
+Pigeon_Configuration::apiKey("fj3ls285zkq93smx");
 
 // Single-Sign-on Service Provider
 
