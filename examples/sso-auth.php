@@ -3,9 +3,9 @@
 ini_set( "display_errors", TRUE );
 require_once( __DIR__. "../../Pigeon.php");
 
-Pigeon_Configuration::pigeonDomain("profil-test.acadienouvelle.com");
-Pigeon_Configuration::clientId("acadienouvelle");
-Pigeon_Configuration::apiKey("fj3ls285zkq93smx");
+Pigeon_Configuration::pigeonDomain("");
+Pigeon_Configuration::clientId("");
+Pigeon_Configuration::apiKey("");
 
 $pigeon = new Pigeon();
 
